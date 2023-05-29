@@ -113,7 +113,7 @@ jobs:
           body: See the assets to download this version and install.
           prerelease: false
           generate_release_notes: false
-          files: ./src-tauri/target/${{ matrix.target }}/debug/lain-voice.exe
+          files: ./src-tauri/target/debug/lain-voice.exe
       - run: cmd /c ls.bat
 #      - name: Upload Release Asset
 #        id: upload-release-asset
