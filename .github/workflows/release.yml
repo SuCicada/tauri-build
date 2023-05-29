@@ -71,7 +71,7 @@ jobs:
 #          TAURI_KEY_PASSWORD: ${{ secrets.TAURI_KEY_PASSWORD }}
       - run: cd src-tauri && cargo build
 
-      - run: "dir /s"
+      - run: dir ./target/${{ matrix.target }}/release/bundle/msi/
 
 #      - uses: actions/upload-artifact@v3
 #        if: matrix.os == 'windows-latest'
@@ -93,21 +93,28 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: myhome2-0.0.1-SNAPSHOT.jar
-          release_name: myhome2-0.0.1-SNAPSHOT.jar
+          tag_name: new
+          release_name: new
           draft: false
           prerelease: false
 
-      - name: Upload Release Asset
-        id: upload-release-asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/upload-artifact@v3
+        if: matrix.os == 'windows-latest'
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-          asset_path: ./target/myhome2-0.0.1-SNAPSHOT.jar
-          asset_name: myhome2-0.0.1-SNAPSHOT.jar
-          asset_content_type: application/zip
+          name: artifacts-${{ matrix.arch }}
+          path: |
+            ./target/${{ matrix.target }}/release/bundle/msi/**
+
+#      - name: Upload Release Asset
+#        id: upload-release-asset
+#        uses: actions/upload-release-asset@v1
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        with:
+#          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+#          asset_path: ./target/${{ matrix.target }}/release/bundle/msi/**
+#          asset_name: myhome2-0.0.1-SNAPSHOT.jar
+#          asset_content_type: application/zip
 
 
 #      - name: Webhook
