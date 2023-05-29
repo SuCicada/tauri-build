@@ -82,7 +82,7 @@ jobs:
       - name: Delete older release
         uses: dev-drprasad/delete-older-releases@v0.2.0
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.API_TOKEN_GITHUB }}
         with:
           keep_latest: 0
 
@@ -106,7 +106,7 @@ jobs:
       - name: Create Release
         uses: softprops/action-gh-release@master
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.API_TOKEN_GITHUB }}
         with:
           tag_name: new
           name: lain
