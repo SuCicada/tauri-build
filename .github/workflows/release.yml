@@ -2,8 +2,9 @@ name: Release CI
 
 on:
   push:
-    tags:
-      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+    branches:
+      - master #    tags:
+#      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
 
 jobs:
   build-chatgpt:
@@ -70,29 +71,15 @@ jobs:
 #          TAURI_KEY_PASSWORD: ${{ secrets.TAURI_KEY_PASSWORD }}
       - run: cd src-tauri && cargo build
 
-      - run: ls -lR ./target/
+      - run: ls -lR ./
 
-      - uses: actions/upload-artifact@v3
-        if: matrix.os == 'windows-latest'
-        with:
-          name: artifacts-${{ matrix.arch }}
-          path: |
-            ./target/${{ matrix.target }}/release/bundle/msi/**
+#      - uses: actions/upload-artifact@v3
+#        if: matrix.os == 'windows-latest'
+#        with:
+#          name: artifacts-${{ matrix.arch }}
+#          path: |
+#            ./target/${{ matrix.target }}/release/bundle/msi/**
 
-
-      - name: Webhook
-        if: always()
-        uses: SuCicada/su-action-webhook@latest
-        with:
-          url: ${{secrets.WEBHOOK_URL}}
-          job: ${{toJSON(job)}}
-          github: ${{toJSON(github)}}
-
-
-  release-chatgpt:
-    needs: build-chatgpt
-    runs-on: ubuntu-latest
-    steps:
       - name: Delete older release
         uses: dev-drprasad/delete-older-releases@v0.2.0
         env:
