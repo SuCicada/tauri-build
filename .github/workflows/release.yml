@@ -69,7 +69,8 @@ jobs:
 #          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 #          TAURI_PRIVATE_KEY: ${{ secrets.TAURI_PRIVATE_KEY }}
 #          TAURI_KEY_PASSWORD: ${{ secrets.TAURI_KEY_PASSWORD }}
-      - run: cd src-tauri && cargo build
+#      - run: cd src-tauri && cargo build
+      - run:
 
 #      - uses: actions/upload-artifact@v3
 #        if: matrix.os == 'windows-latest'
@@ -91,8 +92,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: new
-          release_name: new
+          tag_name: new1111
+          release_name: new2222
           draft: false
           prerelease: false
 
