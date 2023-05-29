@@ -71,7 +71,7 @@ jobs:
 #          TAURI_KEY_PASSWORD: ${{ secrets.TAURI_KEY_PASSWORD }}
       - run: cd src-tauri && cargo build
 
-      - run: dir /s
+      - run: "dir /s"
 
 #      - uses: actions/upload-artifact@v3
 #        if: matrix.os == 'windows-latest'
@@ -110,10 +110,10 @@ jobs:
           asset_content_type: application/zip
 
 
-      - name: Webhook
-        if: always()
-        uses: SuCicada/su-action-webhook@latest
-        with:
-          url: ${{secrets.WEBHOOK_URL}}
-          job: ${{toJSON(job)}}
-          github: ${{toJSON(github)}}
+#      - name: Webhook
+#        if: always()
+#        uses: SuCicada/su-action-webhook@latest
+#        with:
+#          url: ${{secrets.WEBHOOK_URL}}
+#          job: ${{toJSON(job)}}
+#          github: ${{toJSON(github)}}
