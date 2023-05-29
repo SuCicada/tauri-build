@@ -71,8 +71,6 @@ jobs:
 #          TAURI_KEY_PASSWORD: ${{ secrets.TAURI_KEY_PASSWORD }}
       - run: cd src-tauri && cargo build
 
-      - run: dir ./target/${{ matrix.target }}/release/bundle/msi/
-
 #      - uses: actions/upload-artifact@v3
 #        if: matrix.os == 'windows-latest'
 #        with:
@@ -105,6 +103,7 @@ jobs:
           path: |
             ./target/${{ matrix.target }}/release/bundle/msi/**
 
+      - run: ls.bat
 #      - name: Upload Release Asset
 #        id: upload-release-asset
 #        uses: actions/upload-release-asset@v1
